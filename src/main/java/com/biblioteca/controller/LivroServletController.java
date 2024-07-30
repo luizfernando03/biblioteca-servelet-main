@@ -11,7 +11,7 @@ import java.io.IOException;
 
 
 @WebServlet("/Livros")
-public class LivroServlet extends HttpServlet {
+public class LivroServletController extends HttpServlet {
 
     private LivroService livroService;
 

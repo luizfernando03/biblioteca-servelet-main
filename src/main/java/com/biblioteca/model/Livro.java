@@ -1,4 +1,4 @@
-package com.biblioteca.Model;
+package com.biblioteca.model;
 
 public class Livro {
     private String isbn;

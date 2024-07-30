@@ -5,33 +5,77 @@
   Time: 15:50
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>All Users In Database</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 10px;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: white;
+        }
+        nav {
+            background-color: #333;
+            overflow: hidden;
+            padding: 10px;
+        }
+        main {
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-<header>
-    <c:choose>
-        <c:when test="${not empty user}">
-            <p>Usuário autenticado: ${user.name}</p>
-            <a href="logout">Logout</a>
-        </c:when>
-        <c:otherwise>
-            <p>Usuário não autenticado</p>
-            <a href="login">Login</a>
-        </c:otherwise>
-    </c:choose>
-</header>
-<h2>Users in Database</h2>
-<ul>
-    <c:if test="${not empty user}">
-        <c:forEach items="${users}" var="user">
-            <li>${user}</li>
-        </c:forEach>
+<%@ include file="WEB-INF/jsp/include/header.jsp" %>
+<main>
+    <h2>Lista de Usuários</h2>
+    <c:if test="${not empty users}">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${users}" var="user">
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.nome}</td>
+                    <td>${user.email}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </c:if>
-</ul>
-<a href="index.jsp">Home</a>
+</main>
+<%@ include file="WEB-INF/jsp/include/footer.jsp" %>
 </body>
 </html>

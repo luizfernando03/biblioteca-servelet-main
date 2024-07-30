@@ -1,6 +1,6 @@
 package com.biblioteca.controller;
 
-import com.biblioteca.Model.User;
+import com.biblioteca.model.User;
 import com.biblioteca.Service.UserAuthenticator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,14 @@ public class UserController extends HttpServlet {
                 String password = request.getParameter("password");
                 String email = request.getParameter("email");
                 user = new User(password, email);
-                var authUser = authenticator.authenticate(user, users);
+                User authUser = null;
+                try {
+                    authUser = authenticator.authenticate(user, users);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
                 if (authUser != null) {
                     request.getSession().setAttribute("user", authUser);
                     request.getRequestDispatcher("welcome.jsp").forward(request, response);

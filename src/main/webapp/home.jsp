@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
-    <h1>Bem-vindo à Biblioteca</h1>
+    <h1> Selecione a opcao desejada abaixo!</h1>
     <nav>
         <ul>
             <li><a href="cadastro.jsp">Cadastrar Livro</a></li>

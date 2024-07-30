@@ -1,7 +1,6 @@
 package com.biblioteca.dao;
 
-
-import com.biblioteca.Model.Livro;
+import com.biblioteca.model.Livro;
 import com.biblioteca.util.DatabaseConnection;
 
 
@@ -15,6 +14,9 @@ public class LivroDAO {
 
     public LivroDAO() {
         this.connection = DatabaseConnection.getConnection();
+        if (this.connection == null) {
+            throw new RuntimeException("Falha ao obter conexão com o banco de dados.");
+        }
     }
 
     public void adicionarLivro(Livro livro) {
@@ -26,7 +28,7 @@ public class LivroDAO {
             stmt.setInt(4, livro.getQuantidade());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new LivroDAOException("Erro ao adicionar livro", e);
         }
     }
 
@@ -44,7 +46,7 @@ public class LivroDAO {
                 livros.add(livro);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new LivroDAOException("Erro ao listar livros", e);
         }
         return livros;
     }
@@ -58,7 +60,7 @@ public class LivroDAO {
             stmt.setString(4, livro.getIsbn());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new LivroDAOException("Erro ao atualizar livro", e);
         }
     }
 
@@ -68,8 +70,7 @@ public class LivroDAO {
             stmt.setString(1, isbn);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new LivroDAOException("Erro ao excluir livro", e);
         }
     }
 }
-

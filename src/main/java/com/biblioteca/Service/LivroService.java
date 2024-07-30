@@ -1,6 +1,6 @@
 package com.biblioteca.Service;
 
-import com.biblioteca.Model.Livro;
+import com.biblioteca.model.Livro;
 import com.biblioteca.dao.LivroDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +12,8 @@ import java.util.List;
 public class LivroService {
 
     private LivroDAO livroDAO;
+
+    public LivroService() { livroDAO = new LivroDAO(); }
 
     public void init() {
         livroDAO = new LivroDAO();
